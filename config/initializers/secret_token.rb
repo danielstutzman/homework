@@ -9,4 +9,9 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Homework::Application.config.secret_key_base = 'ecfef6b0b3b2842b9e8e1798b2c472f6760c556e100ea7fb5daece1cb0cfd16e534734cfcb5604d19c041cf164f2b50ac68d2006db7f249760a8c63c9b530d03'
+Homework::Application.config.secret_key_base =
+  if Rails.env.production?
+    ENV['SESSION_SECRET']
+  else
+    'ecfef6b0b3b2842b9e8e1798b2c472f6760c556e100ea7fb5daece1cb0cfd16e534734cfcb5604d19c041cf164f2b50ac68d2006db7f249760a8c63c9b530d03'
+  end
