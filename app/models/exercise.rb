@@ -1,3 +1,6 @@
 class Exercise < ActiveRecord::Base
-  validates :dir_name, presence: true
+  belongs_to :lesson_plan
+
+  validates :lesson_plan_id, presence: true
+  validates :dir,            presence: true
 end

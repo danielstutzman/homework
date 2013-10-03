@@ -28,12 +28,14 @@ ActiveRecord::Schema.define(version: 20131003174811) do
   add_index "commits", ["sha"], name: "index_commits_on_sha"
 
   create_table "exercises", force: true do |t|
-    t.string   "dir_name",   null: false
+    t.integer  "lesson_plan_id", null: false
+    t.string   "dir",            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "exercises", ["dir_name"], name: "index_exercises_on_dir_name"
+  add_index "exercises", ["dir"], name: "index_exercises_on_dir"
+  add_index "exercises", ["lesson_plan_id"], name: "index_exercises_on_lesson_plan_id"
 
   create_table "lesson_plans", force: true do |t|
     t.date     "date",        null: false
@@ -47,12 +49,14 @@ ActiveRecord::Schema.define(version: 20131003174811) do
   add_index "lesson_plans", ["date"], name: "index_lesson_plans_on_date", unique: true
 
   create_table "refreshes", force: true do |t|
-    t.integer  "user_id",     null: false
-    t.integer  "repo_id",     null: false
-    t.integer  "exercise_id", null: false
-    t.datetime "logged_at",   null: false
+    t.integer  "user_id",      null: false
+    t.integer  "repo_id",      null: false
+    t.string   "exercise_dir"
+    t.string   "exercise_id"
+    t.datetime "logged_at",    null: false
   end
 
+  add_index "refreshes", ["exercise_dir"], name: "index_refreshes_on_exercise_dir"
   add_index "refreshes", ["exercise_id"], name: "index_refreshes_on_exercise_id"
   add_index "refreshes", ["repo_id"], name: "index_refreshes_on_repo_id"
   add_index "refreshes", ["user_id"], name: "index_refreshes_on_user_id"

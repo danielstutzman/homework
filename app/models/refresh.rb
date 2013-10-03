@@ -5,6 +5,5 @@ class Refresh < ActiveRecord::Base
 
   validates :user_id,     presence: true
   validates :repo_id,     presence: true
-  validates :exercise_id, presence: true
   validates :logged_at,   presence: true
 end
