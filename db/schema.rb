@@ -14,18 +14,18 @@
 ActiveRecord::Schema.define(version: 20131003174811) do
 
   create_table "commits", force: true do |t|
-    t.integer  "user_id",           null: false
-    t.integer  "repo_id",           null: false
-    t.string   "sha",               null: false
-    t.string   "message",           null: false
-    t.string   "exercise_dirs_csv", null: false
-    t.datetime "committed_at",      null: false
+    t.integer  "user_id",      null: false
+    t.integer  "repo_id",      null: false
+    t.string   "sha",          null: false
+    t.string   "message",      null: false
+    t.string   "exercise_dir"
+    t.datetime "committed_at", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "commits", ["committed_at"], name: "index_commits_on_committed_at"
-  add_index "commits", ["sha"], name: "index_commits_on_sha", unique: true
+  add_index "commits", ["sha"], name: "index_commits_on_sha"
 
   create_table "exercises", force: true do |t|
     t.string   "dir_name",   null: false
@@ -58,10 +58,11 @@ ActiveRecord::Schema.define(version: 20131003174811) do
   add_index "refreshes", ["user_id"], name: "index_refreshes_on_user_id"
 
   create_table "repos", force: true do |t|
-    t.integer  "user_id",    null: false
-    t.string   "name",       null: false
-    t.string   "https_url",  null: false
+    t.integer  "user_id",           null: false
+    t.string   "name",              null: false
+    t.string   "https_url",         null: false
     t.integer  "hook_id"
+    t.boolean  "has_exercise_dirs", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

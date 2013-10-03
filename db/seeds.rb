@@ -3,7 +3,8 @@ daniel = User.create! github_username: 'danielstutzman'
 homework_repo = Repo.create! \
   user:      daniel,
   name:      'homework',
-  https_url: 'https://github.com/danielstutzman/homework'
+  https_url: 'https://github.com/danielstutzman/homework',
+  has_exercise_dirs: false
 
 _100_dir = Exercise.create! dir_name: '100'
 

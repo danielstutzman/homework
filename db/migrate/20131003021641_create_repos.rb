@@ -1,10 +1,11 @@
 class CreateRepos < ActiveRecord::Migration
   def change
     create_table :repos do |t|
-      t.integer :user_id,   null: false
-      t.string  :name,      null: false
-      t.string  :https_url, null: false
-      t.integer :hook_id,   null: true
+      t.integer :user_id,           null: false
+      t.string  :name,              null: false
+      t.string  :https_url,         null: false
+      t.integer :hook_id,           null: true
+      t.boolean :has_exercise_dirs, null: false
 
       t.timestamps
     end

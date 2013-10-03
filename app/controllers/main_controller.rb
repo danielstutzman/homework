@@ -51,20 +51,27 @@ class MainController < ApplicationController
       repo     = Repo.find_by_https_url(repo_url)
       if repo
         post['commits'].each do |commit_post|
-          files = commit_post['added'] +
-                  commit_post['modified'] +
-                  commit_post['removed']
-          exercise_dirs = files.map { |file|
-            file.include?('/') ? file.split('/')[0] : nil
-          }.compact.uniq
-          Commit.create!({
-            user_id:           repo.user_id,
-            repo:              repo,
-            sha:               commit_post['id'],
-            message:           commit_post['message'],
-            committed_at:      commit_post['timestamp'],
-            exercise_dirs_csv: exercise_dirs.join(','),
-          })
+          if repo.has_exercise_dirs
+            files = commit_post['added'] +
+                    commit_post['modified'] +
+                    commit_post['removed']
+            exercise_dirs = files.map { |file|
+              file.include?('/') ? file.split('/')[0] : nil
+            }.compact.uniq
+          else
+            exercise_dirs = [nil]
+          end
+
+          exercise_dirs.each do |exercise_dir|
+            Commit.create!({
+              user_id:      repo.user_id,
+              repo:         repo,
+              sha:          commit_post['id'],
+              message:      commit_post['message'],
+              committed_at: commit_post['timestamp'],
+              exercise_dir: exercise_dir,
+            })
+          end
         end
         head :ok
       else
