@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @refresh.user_id %>
+</p>
+
+<p>
+  <strong>Repo:</strong>
+  <%= @refresh.repo_id %>
+</p>
+
+<p>
+  <strong>Exercise:</strong>
+  <%= @refresh.exercise_id %>
+</p>
+
+<p>
+  <strong>Logged at:</strong>
+  <%= @refresh.logged_at %>
+</p>
+
+<%= link_to 'Edit', edit_refresh_path(@refresh) %> |
+<%= link_to 'Back', refreshes_path %>

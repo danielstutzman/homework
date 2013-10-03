@@ -1,0 +1,33 @@
+<h1>Listing refreshes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Repo</th>
+      <th>Exercise</th>
+      <th>Logged at</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @refreshes.each do |refresh| %>
+      <tr>
+        <td><%= refresh.user_id %></td>
+        <td><%= refresh.repo_id %></td>
+        <td><%= refresh.exercise_id %></td>
+        <td><%= refresh.logged_at %></td>
+        <td><%= link_to 'Show', refresh %></td>
+        <td><%= link_to 'Edit', edit_refresh_path(refresh) %></td>
+        <td><%= link_to 'Destroy', refresh, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Refresh', new_refresh_path %>
