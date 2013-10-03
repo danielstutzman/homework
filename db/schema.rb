@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131003161333) do
+ActiveRecord::Schema.define(version: 20131003174811) do
 
   create_table "commits", force: true do |t|
     t.integer  "user_id",           null: false
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(version: 20131003161333) do
   end
 
   add_index "exercises", ["dir_name"], name: "index_exercises_on_dir_name"
+
+  create_table "lesson_plans", force: true do |t|
+    t.date     "date",        null: false
+    t.text     "content",     null: false
+    t.string   "topic",       null: false
+    t.string   "handout_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "refreshes", force: true do |t|
     t.integer  "user_id",     null: false

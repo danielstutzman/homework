@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @lesson_plan.date %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @lesson_plan.content %>
+</p>
+
+<p>
+  <strong>Topic:</strong>
+  <%= @lesson_plan.topic %>
+</p>
+
+<p>
+  <strong>Handout url:</strong>
+  <%= @lesson_plan.handout_url %>
+</p>
+
+<%= link_to 'Edit', edit_lesson_plan_path(@lesson_plan) %> |
+<%= link_to 'Back', lesson_plans_path %>

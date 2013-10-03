@@ -1,4 +1,6 @@
 Homework::Application.routes.draw do
+  resources :lesson_plans
+
   resources :commits
 
   root 'main#root'
