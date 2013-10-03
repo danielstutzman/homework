@@ -4,6 +4,17 @@
     %br
     Login with GitHub
 - else
+  %h2 Lesson Plans
+  - LessonPlan.order(:date).each do |plan|
+    %li
+      %h3 #{plan.date.strftime('%a %b %-d')}: #{plan.topic}
+      %ul
+        %li
+          %a(href='#') Show lesson plan
+          %pre(style='height:50px;overflow:scroll')= plan.content
+        %li Videos
+        %li
+          %a{href:plan.handout_url} Handout
 
   %h2 Commits
   - @user.commits.each do |commit|

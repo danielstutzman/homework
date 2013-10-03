@@ -12,3 +12,8 @@ Refresh.create! \
   repo: homework_repo,
   exercise: _100_dir,
   logged_at: DateTime.now
+
+LessonPlan.create! \
+  date: Date.new(2013, 10, 5),
+  topic: 'Install Fest',
+  content: "This is a test"
