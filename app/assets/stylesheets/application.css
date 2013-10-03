@@ -11,3 +11,7 @@
  *= require_self
  *= require_tree .
  */
+
+.exercise {
+  border: 1px black solid;
+}
