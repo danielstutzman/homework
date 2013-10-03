@@ -8,5 +8,7 @@ class CreateLessonPlans < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :lesson_plans, :date, unique: true
   end
 end

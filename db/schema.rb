@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20131003174811) do
     t.datetime "updated_at"
   end
 
+  add_index "lesson_plans", ["date"], name: "index_lesson_plans_on_date", unique: true
+
   create_table "refreshes", force: true do |t|
     t.integer  "user_id",     null: false
     t.integer  "repo_id",     null: false
