@@ -15,4 +15,8 @@
 /log/*.log
 /tmp
 
+# Ignore dot-env setup since it contains passwords
 .env
+
+# Ignore vim swap files
+.*.swp
