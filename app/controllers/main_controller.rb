@@ -2,6 +2,7 @@ class MainController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: [:github_webhook]
 
   def root
+    @user = User.find_by_id(session[:user_id])
   end
 
   def login_from_github
@@ -12,15 +13,33 @@ class MainController < ApplicationController
     user     = User.find_by_github_username(username) ||
                User.create!(github_username: username)
 
-    # add a hook for any new repos
+    # add a hook for any repos not hooked yet
     user.repos.each do |repo|
       if repo.hook_id.nil?
-        hook = github.repos.hooks.create(username, repo.name,
-          name: 'web', active: true, config: { url: ENV['WEBHOOK_URL'] })
-        repo.hook_id = hook.id
+        # is there already a hook setup for this repo?
+        existing_hook_id = nil
+        existing_hooks = github.repos.hooks.list(
+          username, repo.name, name: 'web', active: true)
+        existing_hooks.each do |hook|
+          if hook.config.url == ENV['WEBHOOK_URL']
+            existing_hook_id = hook.id
+          end
+        end
+
+        # fill in repo.hook_id since it's nil
+        if existing_hook_id
+          repo.hook_id = existing_hook_id
+        else
+          hook = github.repos.hooks.create(username, repo.name,
+            name: 'web', active: true,
+            config: { url: ENV['WEBHOOK_URL'] })
+          repo.hook_id = hook.id
+        end
         repo.save!
       end
     end
+
+    session[:user_id] = user.id
 
     redirect_to root_url
   end

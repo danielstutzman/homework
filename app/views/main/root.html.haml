@@ -1,3 +1,18 @@
-%h1 Here
-%p
-  %a(href='/auth/github') Login with GitHub
+- if @user.nil?
+  %a(href='/auth/github')
+    = image_tag 'github_octocat.png'
+    %br
+    Login with GitHub
+- else
+
+  %h2 Commits
+  - @user.commits.each do |commit|
+    %li= commit
+  
+  %h2 Refreshes
+  - @user.refreshes.each do |refresh|
+    %li= refresh
+  
+  %h2 Exercises
+  - Exercise.order(:id).each do |exercise|
+    %h3.exercise Exercise #{exercise.id}
