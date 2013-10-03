@@ -6,6 +6,7 @@ class CreateCommits < ActiveRecord::Migration
       t.string    :sha,          null: false
       t.string    :message,      null: false
       t.string    :exercise_dir, null: true
+      t.integer   :exercise_id,  null: true
       t.timestamp :committed_at, null: false
 
       t.timestamps

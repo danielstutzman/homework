@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20131003174811) do
     t.string   "sha",          null: false
     t.string   "message",      null: false
     t.string   "exercise_dir"
+    t.integer  "exercise_id"
     t.datetime "committed_at", null: false
     t.datetime "created_at"
     t.datetime "updated_at"

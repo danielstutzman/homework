@@ -4,26 +4,25 @@
     %br
     Login with GitHub
 - else
-  %h2 Lesson Plans
   - LessonPlan.order(:date).each do |plan|
-    %li
-      %h3 #{plan.date.strftime('%a %b %-d')}: #{plan.topic}
-      %ul
-        %li
-          %a(href='#') Show lesson plan
-          %pre(style='height:50px;overflow:scroll')= plan.content
-        %li Videos
-        %li
-          %a{href:plan.handout_url} Handout
+    %h1 #{plan.date.strftime('%a %b %-d')}: #{plan.topic}
 
-  %h2 Commits
-  - @user.commits.each do |commit|
-    %li= commit
-  
-  %h2 Refreshes
-  - @user.refreshes.each do |refresh|
-    %li= refresh
-  
-  %h2 Exercises
-  - Exercise.order(:id).each do |exercise|
-    %h3.exercise Exercise #{exercise.id}
+    %li
+      Videos
+    %li
+      %a{href:plan.handout_url} Handout
+
+    %pre(style='height:50px;overflow:scroll')= plan.content
+
+    - Exercise.order(:id).each do |exercise|
+      %h2 Exercise #{exercise.dir}
+
+      Commits:
+      - commits = Commit.where(user: @user, exercise: exercise)
+      = commits.map { |commit| commit.to_s }.join(', ')
+      %br
+
+      Refreshes:
+      - refreshes = Refresh.where(user: @user, exercise: exercise)
+      = refreshes.map { |refresh| refresh.to_s }.join(', ')
+      %br
