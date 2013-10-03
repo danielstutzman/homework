@@ -51,3 +51,5 @@ gem 'omniauth-github'
 gem 'github_api'
 
 gem 'haml'
+
+gem 'rake_db_dump'
