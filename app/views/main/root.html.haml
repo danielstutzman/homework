@@ -12,7 +12,9 @@
     %li
       %a{href:plan.handout_url} Handout
 
-    %pre(style='height:50px;overflow:scroll')= plan.content
+    -#%pre(style='height:50px;overflow:scroll')
+    %div
+      != plan.content_as_html
 
     - Exercise.order(:id).each do |exercise|
       %h2 Exercise #{exercise.dir}
