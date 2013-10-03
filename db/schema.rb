@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131003023132) do
+ActiveRecord::Schema.define(version: 20131003161333) do
+
+  create_table "commits", force: true do |t|
+    t.integer  "user_id",           null: false
+    t.integer  "repo_id",           null: false
+    t.string   "sha",               null: false
+    t.string   "message",           null: false
+    t.string   "exercise_dirs_csv", null: false
+    t.datetime "committed_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "commits", ["committed_at"], name: "index_commits_on_committed_at"
+  add_index "commits", ["sha"], name: "index_commits_on_sha", unique: true
 
   create_table "exercises", force: true do |t|
     t.string   "dir_name",   null: false
@@ -34,12 +48,14 @@ ActiveRecord::Schema.define(version: 20131003023132) do
 
   create_table "repos", force: true do |t|
     t.integer  "user_id",    null: false
-    t.string   "url",        null: false
+    t.string   "name",       null: false
+    t.string   "https_url",  null: false
+    t.integer  "hook_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "repos", ["url"], name: "index_repos_on_url", unique: true
+  add_index "repos", ["https_url"], name: "index_repos_on_https_url", unique: true
   add_index "repos", ["user_id"], name: "index_repos_on_user_id"
 
   create_table "users", force: true do |t|

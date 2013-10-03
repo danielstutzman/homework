@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @commit.user_id %>
+</p>
+
+<p>
+  <strong>Repo:</strong>
+  <%= @commit.repo_id %>
+</p>
+
+<p>
+  <strong>Sha:</strong>
+  <%= @commit.sha %>
+</p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @commit.message %>
+</p>
+
+<p>
+  <strong>Exercise dirs csv:</strong>
+  <%= @commit.exercise_dirs_csv %>
+</p>
+
+<p>
+  <strong>Committed at:</strong>
+  <%= @commit.committed_at %>
+</p>
+
+<%= link_to 'Edit', edit_commit_path(@commit) %> |
+<%= link_to 'Back', commits_path %>

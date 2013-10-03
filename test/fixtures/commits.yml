@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  repo_id: 1
+  sha: MyString
+  message: MyString
+  exercise_dirs_csv: MyString
+  committed_at: 2013-10-03 10:13:33
+
+two:
+  user_id: 1
+  repo_id: 1
+  sha: MyString
+  message: MyString
+  exercise_dirs_csv: MyString
+  committed_at: 2013-10-03 10:13:33

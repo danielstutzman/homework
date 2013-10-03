@@ -1,8 +1,9 @@
 daniel = User.create! github_username: 'danielstutzman'
 
 homework_repo = Repo.create! \
-  user: daniel,
-  url: 'https://github.com/danielstutzman/homework'
+  user:      daniel,
+  name:      'homework',
+  https_url: 'https://github.com/danielstutzman/homework'
 
 _100_dir = Exercise.create! dir_name: '100'
 

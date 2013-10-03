@@ -1,10 +1,3 @@
 %h1 Here
 %p
   %a(href='/auth/github') Login with GitHub
-
--#- Github.repos.list(user: 'danielstutzman').each do |repo|
--#  %li= repo
-- Github.repos.commits.all('danielstutzman', 'Wasp').each do |commit|
-  %li
-    = commit.sha
-    = commit.commit.message

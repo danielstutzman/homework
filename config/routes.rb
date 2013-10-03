@@ -1,12 +1,14 @@
 Homework::Application.routes.draw do
-  resources :refreshes
-
-  resources :exercises
-
-  resources :repos
-
-  resources :users
+  resources :commits
 
   root 'main#root'
+
   get '/auth/github/callback' => 'main#login_from_github'
+
+  resources :users
+  resources :repos
+  resources :exercises
+  resources :refreshes
+
+  post '/github_webhook' => 'main#github_webhook'
 end
