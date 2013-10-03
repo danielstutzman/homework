@@ -1,8 +1,10 @@
 class Exercise < ActiveRecord::Base
+  self.primary_key = :id
+
   belongs_to :lesson_plan
   has_many   :commits
   has_many   :refreshes
 
-  validates :lesson_plan_id, presence: true
-  validates :dir,            presence: true
+  validates :id, presence: true
+  validates :id, uniqueness: true
 end

@@ -17,7 +17,9 @@
       != plan.content_as_html
 
     - Exercise.order(:id).each do |exercise|
-      %h2 Exercise #{exercise.dir}
+      %h2 Exercise #{exercise.id}
+
+      %pre= exercise.content
 
       Commits:
       - commits = Commit.where(user: @user, exercise: exercise)

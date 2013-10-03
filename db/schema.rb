@@ -28,14 +28,15 @@ ActiveRecord::Schema.define(version: 20131003174811) do
   add_index "commits", ["committed_at"], name: "index_commits_on_committed_at"
   add_index "commits", ["sha"], name: "index_commits_on_sha"
 
-  create_table "exercises", force: true do |t|
+  create_table "exercises", id: false, force: true do |t|
+    t.integer  "id",             null: false
     t.integer  "lesson_plan_id", null: false
-    t.string   "dir",            null: false
+    t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "exercises", ["dir"], name: "index_exercises_on_dir"
+  add_index "exercises", ["id"], name: "index_exercises_on_id", unique: true
   add_index "exercises", ["lesson_plan_id"], name: "index_exercises_on_lesson_plan_id"
 
   create_table "lesson_plans", force: true do |t|

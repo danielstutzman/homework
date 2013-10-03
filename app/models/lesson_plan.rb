@@ -6,6 +6,42 @@ class LessonPlan < ActiveRecord::Base
   validates :topic,   presence: true
   validates :date,    uniqueness: true
 
+  def update_exercises!
+    exercise_num_to_lines = {}
+    exercise_num = nil
+    exercise_num_indents = 0
+    self.content.split(/\r?\n/).each do |line|
+      match = line.match(/^( *)(- )?(X([0-9]+) ?)?(.*)$/)
+
+      num_indents = match[1].size
+
+      if match[4]
+        exercise_num = match[4].to_i
+        exercise_num_indents = num_indents # 2 for "- " bullet
+        exercise_num_to_lines[exercise_num] = []
+      elsif num_indents <= exercise_num_indents
+        exercise_num = nil
+      end
+
+      if exercise_num
+        line = ' ' * (num_indents - exercise_num_indents)
+        line += match[2] if match[2] && num_indents > exercise_num_indents
+        line += match[5]
+        exercise_num_to_lines[exercise_num].push line
+      end
+    end
+
+    self.exercises.each { |exercise| exercise.destroy }
+
+    exercise_num_to_lines.each do |exercise_num, lines|
+      Exercise.create!({
+        id: exercise_num,
+        lesson_plan: self,
+        content: lines.join("\n"),
+      })
+    end
+  end
+
   def content_as_html
     last_num_indents = 0
 
