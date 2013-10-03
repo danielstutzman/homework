@@ -1,10 +1,13 @@
 <h1>Listing repos</h1>
 
-<table>
+<table border="1">
   <thead>
     <tr>
       <th>User</th>
-      <th>Url</th>
+      <th>Name</th>
+      <th>HTTPS URL</th>
+      <th>Hook ID</th>
+      <th>Has exercise dirs?</th>
       <th></th>
       <th></th>
       <th></th>
@@ -15,7 +18,10 @@
     <% @repos.each do |repo| %>
       <tr>
         <td><%= repo.user_id %></td>
-        <td><%= repo.url %></td>
+        <td><%= repo.name %></td>
+        <td><%= repo.https_url %></td>
+        <td><%= repo.hook_id %></td>
+        <td><%= repo.has_exercise_dirs %></td>
         <td><%= link_to 'Show', repo %></td>
         <td><%= link_to 'Edit', edit_repo_path(repo) %></td>
         <td><%= link_to 'Destroy', repo, method: :delete, data: { confirm: 'Are you sure?' } %></td>

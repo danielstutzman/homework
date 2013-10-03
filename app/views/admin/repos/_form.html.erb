@@ -16,8 +16,20 @@
     <%= f.number_field :user_id %>
   </div>
   <div class="field">
-    <%= f.label :url %><br>
-    <%= f.text_field :url %>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :https_url %><br>
+    <%= f.text_field :https_url %>
+  </div>
+  <div class="field">
+    <%= f.label :hook_id %><br>
+    <%= f.number_field :hook_id %>
+  </div>
+  <div class="field">
+    <%= f.label :has_exercise_dirs %><br>
+    <%= f.check_box :has_exercise_dirs %>
   </div>
   <div class="actions">
     <%= f.submit %>

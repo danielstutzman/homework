@@ -6,8 +6,23 @@
 </p>
 
 <p>
-  <strong>Url:</strong>
-  <%= @repo.url %>
+  <strong>Name:</strong>
+  <%= @repo.name %>
+</p>
+
+<p>
+  <strong>HTTPS URL:</strong>
+  <%= @repo.https_url %>
+</p>
+
+<p>
+  <strong>Hook ID:</strong>
+  <%= @repo.hook_id %>
+</p>
+
+<p>
+  <strong>Has exercise dirs?</strong>
+  <%= @repo.has_exercise_dirs %>
 </p>
 
 <%= link_to 'Edit', edit_repo_path(@repo) %> |
