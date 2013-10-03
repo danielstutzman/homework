@@ -1,4 +1,4 @@
-class CommitsController < ApplicationController
+class Admin::CommitsController < ApplicationController
   before_action :set_commit, only: [:show, :edit, :update, :destroy]
 
   # GET /commits

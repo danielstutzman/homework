@@ -1,4 +1,4 @@
-class ExercisesController < ApplicationController
+class Admin::ExercisesController < ApplicationController
   before_action :set_exercise, only: [:show, :edit, :update, :destroy]
 
   # GET /exercises

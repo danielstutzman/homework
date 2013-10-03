@@ -1,4 +1,4 @@
-class RefreshesController < ApplicationController
+class Admin::RefreshesController < ApplicationController
   before_action :set_refresh, only: [:show, :edit, :update, :destroy]
 
   # GET /refreshes
