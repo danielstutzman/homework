@@ -1,0 +1,66 @@
+setup droplet on digitalocean
+  named homework
+  Ubuntu 12.04 x32
+add hw.prod to /etc/hosts
+ssh root@hw.prod
+
+apt-get install -y mysql-server
+  password for mysql root user is (see lastpass note)
+
+apt-get install -y php5-gd
+
+mysql -u root -p # password is (see lastpass note)
+  CREATE DATABASE piwik;
+  CREATE USER 'piwik'@'localhost' IDENTIFIED BY '(see lastpass note)';
+  GRANT ALL PRIVILEGES ON piwik.* TO 'piwik'@'localhost' WITH GRANT OPTION;
+
+apt-get install -y nginx
+service nginx start
+
+apt-get install -y php5-fpm
+apt-get install -y vim
+vi /etc/nginx/sites-available/default
+  uncomment php lines except line that mentions a sock
+service nginx restart
+
+vi /usr/share/nginx/www/info.php
+  <?php phpinfo(); ?>
+browse to http://162.243.28.101/info.php
+
+apt-get install -y php5-mysql
+apt-get install -y php5-xcache
+
+service php5-fpm reload
+
+curl http://builds.piwik.org/latest.zip > piwik.zip
+apt-get install unzip
+unzip piwik.zip
+mv piwik /usr/share/nginx/www/analytics
+
+browse to http://162.243.28.101/analytics/index.php
+  run chmod commands given in page
+  refresh browser
+  Next
+  for db page
+    login=piwik
+    password=(see lastpass note)
+    dbname=piwik
+    no table prefix
+  super user login
+    login=admin
+    password=(see lastpass note)
+    email=dtstutz@gmail.com
+    uncheck email me
+  web site
+    name=homework
+    URL=http://www.davincicoders.info
+    timezone=Denver
+  copy javascript code
+  
+paste it into /usr/share/nginx/www/test-piwik.html
+
+http://162.243.28.101/test-piwik.html
+
+mysql -u piwik -ppassword
+  select * from piwik_log_action;
+  select * from piwik_log_visit;

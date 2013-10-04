@@ -1,0 +1,61 @@
+- hosts: web
+  user: root
+  tasks:
+  - command: "/usr/sbin/adduser deployer --disabled-password --gecos '' creates=/home/deployer"
+  - command: mkdir /home/deployer/.ssh creates=/home/deployer/.ssh
+  - command: chown deployer:deployer /home/deployer/.ssh
+  - command: cp /root/.ssh/authorized_keys /home/deployer/.ssh/authorized_keys
+  - command: chown deployer:deployer /home/deployer/.ssh/authorized_keys
+  - command: chmod 0600 /home/deployer/.ssh/authorized_keys
+
+  - command: apt-get update
+
+  - apt: "pkg=ruby1.9.3"
+  - apt: "pkg=nginx"
+  - apt: "pkg=git"
+  - apt: "pkg=make"
+  - apt: "pkg=g++"
+  - apt: "pkg=postgresql"
+  - apt: "pkg=libpq-dev"
+  - apt: "pkg=libsqlite3-dev"
+  - apt: "pkg=nodejs"
+
+  - command: mkdir /var/lib/postgresql/.ssh creates=/var/lib/postgresql/.ssh
+  - command: chown postgres:postgres /var/lib/postgresql/.ssh
+  - command: cp /root/.ssh/authorized_keys /var/lib/postgresql/.ssh/authorized_keys
+  - command: chown postgres:postgres /var/lib/postgresql/.ssh/authorized_keys
+  - command: chmod 0600 /var/lib/postgresql/.ssh/authorized_keys
+
+  - command: gem install bundler creates=/usr/local/bin/bundle
+
+  - copy: src=default dest=/etc/nginx/sites-available/default
+
+  - command: gem install eventmachine -v 1.0.0
+  - command: gem install thin -v 1.5.0
+  - command: thin install
+  - command: /usr/sbin/update-rc.d -f thin defaults
+  - copy: src=homework.yml dest=/etc/thin/homework.yml
+
+- hosts: web
+  user: postgres
+  tasks:
+  - command: sh -c "createuser -S -D -R homework && touch .created_role_for_homework" creates=/var/lib/postgresql/.created_role_for_homework
+  - command: "sh -c \"echo alter user homework with password \\\\'homework\\\\' | psql\""
+  - command: sh -c "createdb -O homework homework && touch .created_db_for_homework" creates=/var/lib/postgresql/.created_db_for_homework
+
+- hosts: web
+  user: deployer
+  tasks:
+  - command: "git clone https://github.com/danielstutzman/homework creates=/home/deployer/homework"
+  - command: "bundle install --deployment chdir=/home/deployer/homework"
+  - command: "sh -c 'RACK_ENV=production bundle exec rake db:migrate' chdir=/home/deployer/homework"
+  - command: "mkdir -p tmp tmp/sockets tmp/pids log chdir=/home/deployer/homework"
+
+  - copy: src=dot-pgpass dest=/home/deployer/.pgpass
+  - command: chmod 0600 /home/deployer/.pgpass
+
+- hosts: web
+  user: root
+  tasks:
+  - command: service thin restart
+  - command: service nginx restart
