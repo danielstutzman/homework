@@ -53,3 +53,5 @@ gem 'github_api'
 gem 'haml'
 
 gem 'rake_db_dump'
+
+gem 'rails_12factor', group: :production # try to solve thin setup
