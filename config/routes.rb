@@ -1,6 +1,8 @@
 Homework::Application.routes.draw do
   root 'main#root'
 
+  get '/lessons/:month_day' => 'main#single_lesson'
+
   get '/auth/github/callback' => 'main#login_from_github'
 
   # use scope instead of namespace so I don't have to rewrite all

@@ -1,0 +1,9 @@
+%p
+  %a(href='/') Back
+
+%h1
+  = @plan.date.strftime('%a %b %-d')
+  = '-'
+  = @plan.topic
+
+= @plan.content_as_html

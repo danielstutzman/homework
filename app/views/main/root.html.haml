@@ -5,28 +5,27 @@
     Login with GitHub
 - else
   - LessonPlan.order(:date).each do |plan|
-    %h1 #{plan.date.strftime('%a %b %-d')}: #{plan.topic}
+    %h1
+      %a{href: '/lessons/' + plan.date.strftime('%m-%d')}
+        #{plan.date.strftime('%a %b %-d')}: #{plan.topic}
 
-    %li
-      Videos
-    %li
-      %a{href:plan.handout_url} Handout
+    %div(style='margin-left:50px')
+      %li
+        Videos
+      %li
+        %a{href:plan.handout_url} Handout
 
-    -#%pre(style='height:50px;overflow:scroll')
-    %div
-      != plan.content_as_html
+      - Exercise.order(:id).each do |exercise|
+        %h2 Exercise #{exercise.id}
 
-    - Exercise.order(:id).each do |exercise|
-      %h2 Exercise #{exercise.id}
+        %pre= exercise.content
 
-      %pre= exercise.content
+        Commits:
+        - commits = Commit.where(user: @user, exercise: exercise)
+        = commits.map { |commit| commit.to_s }.join(', ')
+        %br
 
-      Commits:
-      - commits = Commit.where(user: @user, exercise: exercise)
-      = commits.map { |commit| commit.to_s }.join(', ')
-      %br
-
-      Refreshes:
-      - refreshes = Refresh.where(user: @user, exercise: exercise)
-      = refreshes.map { |refresh| refresh.to_s }.join(', ')
-      %br
+        Refreshes:
+        - refreshes = Refresh.where(user: @user, exercise: exercise)
+        = refreshes.map { |refresh| refresh.to_s }.join(', ')
+        %br

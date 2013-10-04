@@ -5,6 +5,15 @@ class MainController < ApplicationController
     @user = User.find_by_id(session[:user_id])
   end
 
+  def single_lesson
+    if match = params[:month_day].match(/^([0-9]{2})-([0-9]{2})$/)
+      date = Date.new(2013, match[1].to_i, match[2].to_i)
+      @plan = LessonPlan.find_by_date(date)
+    else
+      raise "Bad format for date, should be MM-DD"
+    end
+  end
+
   def login_from_github
     auth     = request.env['omniauth.auth']
     token    = auth.credentials.token
