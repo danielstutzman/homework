@@ -58,3 +58,6 @@ gem 'rake_db_dump'
 gem 'rails_12factor', group: :production # try to solve thin setup
 
 gem 'pg', group: :production
+
+# log student access to this site
+gem 'rack-piwik', git: 'git://github.com/danielstutzman/rack-piwik.git'

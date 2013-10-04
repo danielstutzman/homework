@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/danielstutzman/rack-piwik.git
+  revision: cfe3478e8efda54ff2a4a6fb3bd1a987a640010c
+  specs:
+    rack-piwik (0.0.1)
+      rack
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -162,6 +169,7 @@ DEPENDENCIES
   omniauth
   omniauth-github
   pg
+  rack-piwik!
   rails (= 4.0.0)
   rails_12factor
   rake_db_dump
