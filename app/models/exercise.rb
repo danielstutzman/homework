@@ -7,4 +7,5 @@ class Exercise < ActiveRecord::Base
 
   validates :id, presence: true
   validates :id, uniqueness: true
+  validates :first_line, presence: true
 end

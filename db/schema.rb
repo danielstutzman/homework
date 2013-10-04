@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20131003174811) do
   create_table "exercises", id: false, force: true do |t|
     t.integer  "id",             null: false
     t.integer  "lesson_plan_id", null: false
+    t.string   "first_line",     null: false
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"

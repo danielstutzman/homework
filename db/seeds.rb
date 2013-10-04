@@ -11,7 +11,10 @@ lesson1 = LessonPlan.create! \
   topic: 'First Day',
   content: "This is a test"
 
-one_hundred = Exercise.create! id: 100, lesson_plan: lesson1
+one_hundred = Exercise.create! \
+  id: 100,
+  lesson_plan: lesson1,
+  first_line: 'test'
 
 Refresh.create! \
   user: daniel,

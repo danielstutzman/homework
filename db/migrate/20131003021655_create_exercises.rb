@@ -3,6 +3,7 @@ class CreateExercises < ActiveRecord::Migration
     create_table :exercises, id: false do |t|
       t.integer :id,             null: false # not auto-numbered
       t.integer :lesson_plan_id, null: false
+      t.string  :first_line,     null: false
       t.text    :content,        null: true
 
       t.timestamps

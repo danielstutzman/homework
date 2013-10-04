@@ -37,6 +37,7 @@ class LessonPlan < ActiveRecord::Base
       Exercise.create!({
         id: exercise_num,
         lesson_plan: self,
+        first_line: lines.first,
         content: lines.join("\n"),
       })
     end

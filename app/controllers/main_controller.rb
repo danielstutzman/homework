@@ -14,6 +14,11 @@ class MainController < ApplicationController
     end
   end
 
+  def single_exercise
+    @user = User.find_by_id(session[:user_id])
+    @exercise = Exercise.find(params[:id])
+  end
+
   def login_from_github
     auth     = request.env['omniauth.auth']
     token    = auth.credentials.token

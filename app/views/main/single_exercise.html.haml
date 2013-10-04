@@ -1,0 +1,16 @@
+%p
+  %a(href='/') Back
+
+%h1 Exercise #{@exercise.id} - #{@exercise.first_line}
+
+%pre
+  = @exercise.content
+
+Commits:
+- commits = Commit.where(user_id: @user.id, exercise: @exercise)
+= commits.map { |commit| commit.to_s }.join(', ')
+%br
+
+Refreshes:
+- refreshes = Refresh.where(user_id: @user.id, exercise: @exercise)
+= refreshes.map { |refresh| refresh.to_s }.join(', ')
