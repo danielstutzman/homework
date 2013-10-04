@@ -44,7 +44,8 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'dotenv-rails', groups: [:development, :test]
+# Use dotenv for production too
+gem 'dotenv-rails', groups: [:development, :test, :production]
 
 gem 'omniauth'
 gem 'omniauth-github'
