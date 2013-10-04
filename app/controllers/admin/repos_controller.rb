@@ -69,6 +69,6 @@ class Admin::ReposController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def repo_params
-      params.require(:repo).permit(:user_id, :url)
+      params.require(:repo).permit(:user_id, :name, :https_url, :has_exercise_dirs)
     end
 end
