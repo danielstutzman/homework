@@ -1,0 +1,12 @@
+- hosts: web
+  user: deployer
+  tasks:
+  - command: "git pull chdir=/home/deployer/homework"
+  - command: "bundle install --deployment chdir=/home/deployer/homework"
+  - command: "sh -c 'RACK_ENV=production bundle exec rake db:migrate' chdir=/home/deployer/homework"
+  - command: "sh -c 'RACK_ENV=production bundle exec rake assets:precompile' chdir=/home/deployer/homework"
+
+- hosts: web
+  user: root
+  tasks:
+  - command: service thin restart
