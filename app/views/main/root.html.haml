@@ -3,13 +3,15 @@
     = image_tag 'github_octocat.png'
     %br
     Login with GitHub
+
 - else
   - LessonPlan.order(:date).each do |plan|
-    %h1
-      %a{href: '/lessons/' + plan.date.strftime('%m-%d')}
-        #{plan.date.strftime('%a %b %-d')}: #{plan.topic}
+    %h1 #{plan.date.strftime('%a %b %-d')}: #{plan.topic}
 
-    %div(style='margin-left:50px')
+    %ul
+      %li
+        %a{href: '/lessons/' + plan.date.strftime('%m-%d')}
+          Lesson plan
       %li
         Videos
       %li
