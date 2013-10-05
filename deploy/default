@@ -36,6 +36,18 @@ server {
                proxy_pass http://thin_homework;
         }
 
+	location ~ ^/(assets)/  {  
+		gzip_static on;
+		expires     max;
+		add_header  Cache-Control public;
+	} 
+	location /analytics/piwik.js {
+                root /usr/share/nginx/www;
+		gzip_static on;
+		expires     max;
+		add_header  Cache-Control public;
+	}
+
         location /analytics/ {
                 root /usr/share/nginx/www;
         }
