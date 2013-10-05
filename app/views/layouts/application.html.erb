@@ -8,6 +8,14 @@
 </head>
 <body>
 
+<% if @user %>
+  <div style='float:right'>
+    <%= form_tag '/logout' do %>
+      <%= submit_tag 'Logout' %>
+    <% end %>
+  </div>
+<% end %>
+
 <%= yield %>
 
 </body>

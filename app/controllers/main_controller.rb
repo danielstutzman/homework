@@ -96,4 +96,9 @@ class MainController < ApplicationController
       render :json => e.message, status: :unprocessable_entity
     end
   end
+
+  def logout
+    session.clear
+    redirect_to '/'
+  end
 end
