@@ -1,0 +1,5 @@
+chmod 0666 /home/deployer/homework/log/production.log
+
+Add to /usr/share/nginx/www/analytics/config/config.ini.php
+  under the other trusted_hosts:
+trusted_hosts[] = "www.davincicoders2013.info"

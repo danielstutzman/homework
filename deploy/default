@@ -37,10 +37,7 @@ server {
         }
 
         location /analytics/ {
-                root /usr/share/nginx/www/analytics;
-                autoindex on;
-                allow 127.0.0.1;
-                deny all;
+                root /usr/share/nginx/www;
         }
 
         location /doc/ {
@@ -68,6 +65,7 @@ server {
         # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
         #
         location ~ \.php$ {
+                root /usr/share/nginx/www;
                 try_files $uri =404;
                 fastcgi_split_path_info ^(.+\.php)(/.+)$;
                 fastcgi_pass 127.0.0.1:9000;
