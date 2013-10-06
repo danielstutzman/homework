@@ -7,7 +7,13 @@ User.transaction do
     name:      'homework',
     https_url: 'https://github.com/danielstutzman/homework',
     has_exercise_dirs: false,
-    is_not_found: false # will be set to true upon login
+    is_not_found: false
+  my_repo = Repo.create! \
+    user:      daniel,
+    name:      '2013-q4-ruby',
+    https_url: 'https://github.com/davincicoders/2013-q4-ruby',
+    has_exercise_dirs: true,
+    is_not_found: false
 
   lesson1 = LessonPlan.create! \
     date: Date.new(2013, 10, 7),

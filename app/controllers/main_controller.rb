@@ -2,6 +2,13 @@ class MainController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: [:github_webhook]
 
   def root
+    @sidebar_links = SidebarLink.order(:name)
+    my_repo = Repo.where(user: @user, has_exercise_dirs: true).first
+    if my_repo
+      @sidebar_links.push SidebarLink.new(
+        name: 'GitHub', url: my_repo.https_url)
+      @sidebar_links = @sidebar_links.sort_by { |link| link.name }
+    end
   end
 
   def single_lesson

@@ -2,7 +2,7 @@
   %div(style='float: right; width: 200px; background-color: #ccc; padding: 20px')
     %h2 Links
     %ul
-      - SidebarLink.order(:name).each do |link|
+      - @sidebar_links.each do |link|
         %li
           %a(target='_new'){href: link.url}= link.name
 
