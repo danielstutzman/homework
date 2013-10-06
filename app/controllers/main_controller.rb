@@ -35,20 +35,22 @@ class MainController < ApplicationController
         if repo.hook_id.nil?
           # is there already a hook setup for this repo?
           existing_hook_id = nil
-            existing_hooks = github.repos.hooks.list(
-              username, repo.name, name: 'web', active: true)
-            existing_hooks.each do |hook|
-              if hook.config.url == ENV['WEBHOOK_URL']
-                existing_hook_id = hook.id
-              end
+          # repos_username will always be the same as username except
+          #   if people push directly to davincicoders
+          repos_username = repo.https_url.split('/')[3]
+          existing_hooks = github.repos.hooks.list(
+            repos_username, repo.name, name: 'web', active: true)
+          existing_hooks.each do |hook|
+            if hook.config.url == ENV['WEBHOOK_URL']
+              existing_hook_id = hook.id
             end
+          end
 
           # fill in repo.hook_id since it's nil
           if existing_hook_id
             repo.hook_id = existing_hook_id
           else
-            raise repo.name.inspect
-            hook = github.repos.hooks.create(username, repo.name,
+            hook = github.repos.hooks.create(repos_username, repo.name,
               name: 'web', active: true,
               config: { url: ENV['WEBHOOK_URL'] })
             repo.hook_id = hook.id
