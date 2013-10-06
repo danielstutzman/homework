@@ -3,8 +3,8 @@
 
 %h1 Exercise #{@exercise.id} - #{@exercise.first_line}
 
-%pre
-  = @exercise.content
+%div(style='white-space:pre')
+  = @exercise.content_as_html
 
 %h2 Relevant commits pushed to GitHub
 - if @commits.size == 0
