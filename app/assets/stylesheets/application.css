@@ -12,6 +12,19 @@
  *= require_tree .
  */
 
+ul.admin-nav {
+  background-color: #ccc;
+}
+ul.admin-nav li {
+  float: left;
+  width: 120px;
+  display: inline-block;
+}
+ul.admin-nav:after {
+  content: "";
+  display: block;
+  clear: both;
+}
 .exercise {
   border: 1px black solid;
 }

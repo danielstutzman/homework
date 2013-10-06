@@ -1,4 +1,11 @@
 %div(style='margin: 0 auto; width: 1000px')
+  - if @user.is_admin
+    %ul.admin-nav
+      %li Admin
+      - %w[commits exercises lesson_plans refreshes repos sidebar_links users].each do |link|
+        %li
+          %a{href: "/admin/#{link}"}= link
+
   %div(style='float: right; width: 200px; background-color: #ccc; padding: 20px')
     %h2 Links
     %ul
