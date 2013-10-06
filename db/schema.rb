@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20131003174811) do
     t.string   "https_url",         null: false
     t.integer  "hook_id"
     t.boolean  "has_exercise_dirs", null: false
+    t.boolean  "is_not_found",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

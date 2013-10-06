@@ -8,6 +8,7 @@
       <th>HTTPS URL</th>
       <th>Hook ID</th>
       <th>Has exercise dirs?</th>
+      <th>Is not found?</th>
       <th></th>
       <th></th>
       <th></th>
@@ -22,6 +23,7 @@
         <td><%= repo.https_url %></td>
         <td><%= repo.hook_id %></td>
         <td><%= repo.has_exercise_dirs %></td>
+        <td><%= repo.is_not_found %></td>
         <td><%= link_to 'Show', repo %></td>
         <td><%= link_to 'Edit', edit_repo_path(repo) %></td>
         <td><%= link_to 'Destroy', repo, method: :delete, data: { confirm: 'Are you sure?' } %></td>

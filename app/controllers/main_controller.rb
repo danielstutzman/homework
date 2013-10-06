@@ -28,27 +28,33 @@ class MainController < ApplicationController
                User.create!(github_username: username)
 
     # add a hook for any repos not hooked yet
-    user.repos.each do |repo|
-      if repo.hook_id.nil?
-        # is there already a hook setup for this repo?
-        existing_hook_id = nil
-        existing_hooks = github.repos.hooks.list(
-          username, repo.name, name: 'web', active: true)
-        existing_hooks.each do |hook|
-          if hook.config.url == ENV['WEBHOOK_URL']
-            existing_hook_id = hook.id
-          end
-        end
+    user.repos.where(is_not_found: false).each do |repo|
+      begin
+        if repo.hook_id.nil?
+          # is there already a hook setup for this repo?
+          existing_hook_id = nil
+            existing_hooks = github.repos.hooks.list(
+              username, repo.name, name: 'web', active: true)
+            existing_hooks.each do |hook|
+              if hook.config.url == ENV['WEBHOOK_URL']
+                existing_hook_id = hook.id
+              end
+            end
 
-        # fill in repo.hook_id since it's nil
-        if existing_hook_id
-          repo.hook_id = existing_hook_id
-        else
-          hook = github.repos.hooks.create(username, repo.name,
-            name: 'web', active: true,
-            config: { url: ENV['WEBHOOK_URL'] })
-          repo.hook_id = hook.id
+          # fill in repo.hook_id since it's nil
+          if existing_hook_id
+            repo.hook_id = existing_hook_id
+          else
+            raise repo.name.inspect
+            hook = github.repos.hooks.create(username, repo.name,
+              name: 'web', active: true,
+              config: { url: ENV['WEBHOOK_URL'] })
+            repo.hook_id = hook.id
+          end
+          repo.save!
         end
+      rescue Github::Error::NotFound
+        repo.is_not_found = true
         repo.save!
       end
     end

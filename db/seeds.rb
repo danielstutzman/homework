@@ -4,7 +4,8 @@ homework_repo = Repo.create! \
   user:      daniel,
   name:      'homework',
   https_url: 'https://github.com/danielstutzman/homework',
-  has_exercise_dirs: false
+  has_exercise_dirs: false,
+  is_not_found: false # will be set to true upon login
 
 lesson1 = LessonPlan.create! \
   date: Date.new(2013, 10, 7),

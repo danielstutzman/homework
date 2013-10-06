@@ -25,5 +25,10 @@
   <%= @repo.has_exercise_dirs %>
 </p>
 
+<p>
+  <strong>Is not found?</strong>
+  <%= @repo.is_not_found %>
+</p>
+
 <%= link_to 'Edit', edit_repo_path(@repo) %> |
 <%= link_to 'Back', repos_path %>
