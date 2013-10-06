@@ -6,11 +6,13 @@
 %pre
   = @exercise.content
 
-Commits:
-- commits = Commit.where(user_id: @user.id, exercise: @exercise)
-= commits.map { |commit| commit.to_s }.join(', ')
-%br
-
-Refreshes:
-- refreshes = Refresh.where(user_id: @user.id, exercise: @exercise)
-= refreshes.map { |refresh| refresh.to_s }.join(', ')
+%h2 Commits pushed to GitHub
+- Commit.where(user: @user, exercise: @exercise).order(:committed_at).each do |commit|
+  %table
+    %tr
+      %td(style='padding: 0 10px')
+        = commit.committed_at.strftime('%Y-%m-%d %H:%M')
+      %th(style='padding: 0 10px')
+        %a{href: "#{commit.repo.https_url}/commit/#{commit.sha}"}
+          = commit.sha[0...6]
+      %td(style='padding: 0 10px')= commit.message

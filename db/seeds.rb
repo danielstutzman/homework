@@ -40,4 +40,13 @@ User.transaction do
     name: 'HipChat',
     url: 'https://davincicoders.hipchat.com/home'
 
+  Commit.create! \
+    user: daniel,
+    repo: my_repo,
+    sha: '154ca500a13d31fd4d3c578621dea0a388dc62bc',
+    message: 'Added cd, edit, and ls pages to 101.',
+    exercise_dir: '100',
+    exercise: one_hundred,
+    committed_at: '2013-10-04 23:12:08'
+
 end # end transaction

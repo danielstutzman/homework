@@ -19,6 +19,8 @@ class MainController < ApplicationController
     @plan = plan_from_month_day_params
     @exercise = Exercise.where(
       lesson_plan: @plan, order_in_lesson: params[:order_in_lesson]).first
+    @commits =
+      Commit.where(user: @user, exercise: @exercise).order(:committed_at)
   end
 
   def login_from_github
