@@ -101,9 +101,9 @@ class LessonPlan < ActiveRecord::Base
           exercise_num += 1
           possible_class = "exercise"
           if match[4] != ''
-            possible_intro = "<b>Exercise #{exercise_num} in #{match[4]}</b> "
+            possible_intro = "<b><a href='/exercises/#{self.date.strftime('%m-%d')}/#{exercise_num}'>Exercise #{exercise_num} in #{match[4]}</a></b> "
           else
-            possible_intro = "<b>Exercise #{exercise_num}</b> "
+            possible_intro = "<b><a href='/exercises/#{self.date.strftime('%m-%d')}/#{exercise_num}'>Exercise #{exercise_num}</a></b> "
           end
         end
 
