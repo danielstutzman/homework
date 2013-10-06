@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20131003174811) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "commits", force: true do |t|
     t.integer  "user_id",      null: false
     t.integer  "repo_id",      null: false
@@ -25,8 +28,8 @@ ActiveRecord::Schema.define(version: 20131003174811) do
     t.datetime "updated_at"
   end
 
-  add_index "commits", ["committed_at"], name: "index_commits_on_committed_at"
-  add_index "commits", ["sha"], name: "index_commits_on_sha"
+  add_index "commits", ["committed_at"], name: "index_commits_on_committed_at", using: :btree
+  add_index "commits", ["sha"], name: "index_commits_on_sha", using: :btree
 
   create_table "exercises", id: false, force: true do |t|
     t.integer  "id",             null: false
@@ -37,8 +40,8 @@ ActiveRecord::Schema.define(version: 20131003174811) do
     t.datetime "updated_at"
   end
 
-  add_index "exercises", ["id"], name: "index_exercises_on_id", unique: true
-  add_index "exercises", ["lesson_plan_id"], name: "index_exercises_on_lesson_plan_id"
+  add_index "exercises", ["id"], name: "index_exercises_on_id", unique: true, using: :btree
+  add_index "exercises", ["lesson_plan_id"], name: "index_exercises_on_lesson_plan_id", using: :btree
 
   create_table "lesson_plans", force: true do |t|
     t.date     "date",        null: false
@@ -49,7 +52,7 @@ ActiveRecord::Schema.define(version: 20131003174811) do
     t.datetime "updated_at"
   end
 
-  add_index "lesson_plans", ["date"], name: "index_lesson_plans_on_date", unique: true
+  add_index "lesson_plans", ["date"], name: "index_lesson_plans_on_date", unique: true, using: :btree
 
   create_table "refreshes", force: true do |t|
     t.integer  "user_id",      null: false
@@ -59,10 +62,10 @@ ActiveRecord::Schema.define(version: 20131003174811) do
     t.datetime "logged_at",    null: false
   end
 
-  add_index "refreshes", ["exercise_dir"], name: "index_refreshes_on_exercise_dir"
-  add_index "refreshes", ["exercise_id"], name: "index_refreshes_on_exercise_id"
-  add_index "refreshes", ["repo_id"], name: "index_refreshes_on_repo_id"
-  add_index "refreshes", ["user_id"], name: "index_refreshes_on_user_id"
+  add_index "refreshes", ["exercise_dir"], name: "index_refreshes_on_exercise_dir", using: :btree
+  add_index "refreshes", ["exercise_id"], name: "index_refreshes_on_exercise_id", using: :btree
+  add_index "refreshes", ["repo_id"], name: "index_refreshes_on_repo_id", using: :btree
+  add_index "refreshes", ["user_id"], name: "index_refreshes_on_user_id", using: :btree
 
   create_table "repos", force: true do |t|
     t.integer  "user_id",           null: false
@@ -74,8 +77,8 @@ ActiveRecord::Schema.define(version: 20131003174811) do
     t.datetime "updated_at"
   end
 
-  add_index "repos", ["https_url"], name: "index_repos_on_https_url", unique: true
-  add_index "repos", ["user_id"], name: "index_repos_on_user_id"
+  add_index "repos", ["https_url"], name: "index_repos_on_https_url", unique: true, using: :btree
+  add_index "repos", ["user_id"], name: "index_repos_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "github_username", null: false
@@ -83,6 +86,6 @@ ActiveRecord::Schema.define(version: 20131003174811) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["github_username"], name: "index_users_on_github_username", unique: true
+  add_index "users", ["github_username"], name: "index_users_on_github_username", unique: true, using: :btree
 
 end
