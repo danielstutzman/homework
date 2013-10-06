@@ -2,7 +2,6 @@ class MainController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: [:github_webhook]
 
   def root
-    @user = User.find_by_id(session[:user_id])
   end
 
   def single_lesson
@@ -15,7 +14,6 @@ class MainController < ApplicationController
   end
 
   def single_exercise
-    @user = User.find_by_id(session[:user_id])
     @exercise = Exercise.find(params[:id])
   end
 

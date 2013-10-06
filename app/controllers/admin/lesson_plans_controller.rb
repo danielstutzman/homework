@@ -1,4 +1,5 @@
 class Admin::LessonPlansController < ApplicationController
+  before_action :user_must_be_admin
   before_action :set_lesson_plan, only: [:show, :edit, :update, :destroy]
 
   # GET /lesson_plans

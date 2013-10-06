@@ -1,4 +1,5 @@
 class Admin::SidebarLinksController < ApplicationController
+  before_action :user_must_be_admin
   before_action :set_sidebar_link, only: [:show, :edit, :update, :destroy]
 
   # GET /sidebar_links

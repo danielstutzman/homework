@@ -1,4 +1,5 @@
 class Admin::ReposController < ApplicationController
+  before_action :user_must_be_admin
   before_action :set_repo, only: [:show, :edit, :update, :destroy]
 
   # GET /repos

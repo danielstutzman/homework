@@ -1,4 +1,5 @@
 class Admin::RefreshesController < ApplicationController
+  before_action :user_must_be_admin
   before_action :set_refresh, only: [:show, :edit, :update, :destroy]
 
   # GET /refreshes

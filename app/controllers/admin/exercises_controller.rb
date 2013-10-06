@@ -1,4 +1,5 @@
 class Admin::ExercisesController < ApplicationController
+  before_action :user_must_be_admin
   before_action :set_exercise, only: [:show, :edit, :update, :destroy]
 
   # GET /exercises
