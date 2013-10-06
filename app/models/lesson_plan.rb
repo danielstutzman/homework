@@ -114,6 +114,9 @@ class LessonPlan < ActiveRecord::Base
         last_num_indents -= 2
       end
 
+      line.gsub! /`(.*?)`/, '<code>\\1</code>'
+      line.gsub! /(https?:\/\/[^ ,]+)/, "<a target='_new' href='\\1'>\\1</a>"
+
       last_num_indents = num_indents
 
       line
