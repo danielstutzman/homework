@@ -10,12 +10,13 @@ Homework::Application.routes.draw do
   # use scope instead of namespace so I don't have to rewrite all
   # the scaffolding path helper calls.
   scope '/admin' do
-    resources :users,        controller: 'admin/users'
-    resources :repos,        controller: 'admin/repos'
-    resources :exercises,    controller: 'admin/exercises'
-    resources :refreshes,    controller: 'admin/refreshes'
-    resources :lesson_plans, controller: 'admin/lesson_plans'
-    resources :commits,      controller: 'admin/commits'
+    resources :users,         controller: 'admin/users'
+    resources :repos,         controller: 'admin/repos'
+    resources :exercises,     controller: 'admin/exercises'
+    resources :refreshes,     controller: 'admin/refreshes'
+    resources :lesson_plans,  controller: 'admin/lesson_plans'
+    resources :commits,       controller: 'admin/commits'
+    resources :sidebar_links, controller: 'admin/sidebar_links'
   end
 
   post '/github_webhook' => 'main#github_webhook'

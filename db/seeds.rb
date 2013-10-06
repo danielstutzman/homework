@@ -23,3 +23,10 @@ Refresh.create! \
   exercise_dir: '100',
   exercise: one_hundred,
   logged_at: DateTime.now
+
+SidebarLink.create! \
+  name: 'Gallery',
+  url: 'http://dvc-projects.tumblr.com'
+SidebarLink.create! \
+  name: 'HipChat',
+  url: 'https://davincicoders.hipchat.com/home'

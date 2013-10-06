@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131003174811) do
+ActiveRecord::Schema.define(version: 20131006131631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,13 @@ ActiveRecord::Schema.define(version: 20131003174811) do
 
   add_index "repos", ["https_url"], name: "index_repos_on_https_url", unique: true, using: :btree
   add_index "repos", ["user_id"], name: "index_repos_on_user_id", using: :btree
+
+  create_table "sidebar_links", force: true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "github_username", null: false

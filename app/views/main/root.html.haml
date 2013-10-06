@@ -7,6 +7,13 @@
       Log in with GitHub
 
 - else
+  %div(style='float: right; width: 200px; background-color: #ccc; padding: 20px')
+    %h2 Links
+    %ul
+      - SidebarLink.order(:name).each do |link|
+        %li
+          %a(target='_new'){href: link.url}= link.name
+
   - LessonPlan.order(:date).each do |plan|
     %h1 #{plan.date.strftime('%a %b %-d')}: #{plan.topic}
 

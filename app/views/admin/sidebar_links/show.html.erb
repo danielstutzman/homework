@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @sidebar_link.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @sidebar_link.url %>
+</p>
+
+<%= link_to 'Edit', edit_sidebar_link_path(@sidebar_link) %> |
+<%= link_to 'Back', sidebar_links_path %>
