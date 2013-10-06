@@ -1,6 +1,7 @@
 - hosts: web
   user: deployer
   tasks:
+  - command: "git checkout db/schema.rb chdir=/home/deployer/homework" # avoid conflict
   - command: "git pull chdir=/home/deployer/homework"
   - command: "bundle install --deployment chdir=/home/deployer/homework"
   - command: "sh -c 'RACK_ENV=production bundle exec rake db:migrate' chdir=/home/deployer/homework"
