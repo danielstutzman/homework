@@ -21,9 +21,10 @@ User.transaction do
     content: "This is a test"
 
   one_hundred = Exercise.create! \
-    id: 100,
     lesson_plan: lesson1,
-    first_line: 'test'
+    first_line: 'test',
+    content: 'test',
+    order_in_lesson: 1
 
   Refresh.create! \
     user: daniel,
