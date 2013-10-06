@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131006131631) do
+ActiveRecord::Schema.define(version: 20131006132504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,9 +73,9 @@ ActiveRecord::Schema.define(version: 20131006131631) do
     t.string   "https_url",         null: false
     t.integer  "hook_id"
     t.boolean  "has_exercise_dirs", null: false
-    t.boolean  "is_not_found",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_not_found",      null: false
   end
 
   add_index "repos", ["https_url"], name: "index_repos_on_https_url", unique: true, using: :btree

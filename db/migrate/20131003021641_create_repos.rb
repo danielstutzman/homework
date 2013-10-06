@@ -6,7 +6,6 @@ class CreateRepos < ActiveRecord::Migration
       t.string  :https_url,         null: false
       t.integer :hook_id,           null: true
       t.boolean :has_exercise_dirs, null: false
-      t.boolean :is_not_found,      null: false
 
       t.timestamps
     end
