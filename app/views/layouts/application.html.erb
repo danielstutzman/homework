@@ -8,6 +8,12 @@
 </head>
 <body>
 
+<% flash.keys.each do |key| %>
+  <div class="flash flash-<%= key %>">
+    <%= flash[key] %>
+  </div>
+<% end %>
+
 <% if @user %>
   <div style='float:right'>
     <%= form_tag '/logout' do %>
