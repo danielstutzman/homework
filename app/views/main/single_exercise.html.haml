@@ -6,8 +6,11 @@
 %pre
   = @exercise.content
 
-%h2 Commits pushed to GitHub
-- Commit.where(user: @user, exercise: @exercise).order(:committed_at).each do |commit|
+%h2 Relevant commits pushed to GitHub
+- if @commits.size == 0
+  %p None so far
+
+- @commits.each do |commit|
   %table
     %tr
       %td(style='padding: 0 10px')

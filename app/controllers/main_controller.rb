@@ -89,6 +89,10 @@ class MainController < ApplicationController
           end
 
           exercise_dirs.each do |exercise_dir|
+            # for example, change '102-html-practice' to '102'
+            exercise_dir_num = exercise_dir.split('-')[0].to_i.to_s
+            exercise = Exercise.find_by_exercise_dir(exercise_dir_num)
+
             Commit.create!({
               user_id:      repo.user_id,
               repo:         repo,
@@ -96,6 +100,7 @@ class MainController < ApplicationController
               message:      commit_post['message'],
               committed_at: commit_post['timestamp'],
               exercise_dir: exercise_dir,
+              exercise:     exercise,
             })
           end
         end
