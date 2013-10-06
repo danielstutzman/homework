@@ -26,5 +26,6 @@ ul.admin-nav:after {
   clear: both;
 }
 .exercise {
-  border: 1px black solid;
+  background-color: #ccc;
+  padding: 10px;
 }
