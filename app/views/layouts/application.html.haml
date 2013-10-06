@@ -17,12 +17,16 @@
       = form_tag '/logout' do
         = submit_tag 'Logout'
 
-  %div(style='margin: 0 auto; width: 1000px')
-    - if @user.is_admin
+  - if @user.is_admin
+    %div(style='margin: 0 auto; width: 1000px')
       %ul.admin-nav
         %li Admin
         - %w[commits exercises lesson_plans refreshes repos sidebar_links users].each do |link|
           %li
             %a{href: "/admin/#{link}"}= link
 
+  - if request.path_info.start_with?('/admin')
     = find_and_preserve(yield) # don't add indent to inside of pre tag
+  - else
+    %div(style='margin: 0 auto; width: 1000px')
+      = yield
