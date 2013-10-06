@@ -35,6 +35,9 @@ class LessonPlan < ActiveRecord::Base
         match = line.match(/^( *)([-+] )?(X([0-9]*) ?)?(.*)$/)
 
         num_indents = match[1].size
+        if num_indents % 2 == 1
+          errors.add :base, "Odd number of indents at line #{line_num0 + 1}"
+        end
 
         if match[3]
           in_exercise = true
