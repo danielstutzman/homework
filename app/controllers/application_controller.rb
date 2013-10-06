@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :user_must_be_logged_in,
-    except: [:login, :login_from_github, :logout]
+    except: [:login, :login_from_github, :logout, :github_webhook]
 
   protected
     def user_must_be_logged_in
