@@ -17,4 +17,12 @@
       = form_tag '/logout' do
         = submit_tag 'Logout'
 
-  = find_and_preserve(yield) # don't add indent to inside of pre tag
+  %div(style='margin: 0 auto; width: 1000px')
+    - if @user.is_admin
+      %ul.admin-nav
+        %li Admin
+        - %w[commits exercises lesson_plans refreshes repos sidebar_links users].each do |link|
+          %li
+            %a{href: "/admin/#{link}"}= link
+
+    = find_and_preserve(yield) # don't add indent to inside of pre tag
