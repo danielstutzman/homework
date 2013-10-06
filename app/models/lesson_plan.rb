@@ -37,7 +37,7 @@ class LessonPlan < ActiveRecord::Base
 
         if match[4]
           exercise_num = match[4].to_i
-          exercise_num_indents = num_indents # 2 for "- " bullet
+          exercise_num_indents = num_indents
           exercise_num_to_lines[exercise_num] = []
           exercise_num_to_line_num[exercise_num] = line_num0 + 1
         elsif num_indents <= exercise_num_indents
