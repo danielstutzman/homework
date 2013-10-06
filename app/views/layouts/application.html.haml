@@ -1,0 +1,20 @@
+!!!
+%html
+  %head
+    %title Homework
+    = stylesheet_link_tag 'application', media: 'all', |
+      'data-turbolinks-track' => true                  |
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+  %body
+    - flash.keys.each do |key|
+      .flash{class: "flash-#{key}"}
+        = flash[key]
+
+  - if @user
+    %div(style='float:right')
+      = form_tag '/logout' do
+        = submit_tag 'Logout'
+
+  = yield
