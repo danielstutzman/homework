@@ -1,5 +1,5 @@
 class LessonPlan < ActiveRecord::Base
-  has_many :exercises
+  has_many :exercises, order: :order_in_lesson
 
   validates :date,    presence: true
   validates :content, presence: true
@@ -25,50 +25,42 @@ class LessonPlan < ActiveRecord::Base
   end
 
   def exercises_can_be_created
-    LessonPlan.transaction do
-      exercise_num_to_lines = {}
-      exercise_num_to_line_num = {}
-      exercise_num = nil
+    Exercise.transaction do
+      self.exercises.each { |exercise| exercise.destroy }
+
+      in_exercise = false
+      exercises = []
       exercise_num_indents = 0
       self.content.split(/\r?\n/).each_with_index do |line, line_num0|
-        match = line.match(/^( *)(- )?(X([0-9]+) ?)?(.*)$/)
+        match = line.match(/^( *)(- )?(X([0-9]*) ?)?(.*)$/)
 
         num_indents = match[1].size
 
-        if match[4]
-          exercise_num = match[4].to_i
+        if match[3]
+          in_exercise = true
           exercise_num_indents = num_indents
-          exercise_num_to_lines[exercise_num] = []
-          exercise_num_to_line_num[exercise_num] = line_num0 + 1
+          exercise = Exercise.new({
+            lesson_plan: self,
+            exercise_dir: (match[4] == '') ? nil : match[4],
+            first_line: match[5],
+            content: match[5],
+            order_in_lesson: exercises.size + 1,
+          })
+          if exercise.first_line == nil || exercise.first_line.strip == ''
+            errors.add :base,
+              "Exercise is missing description at line #{line_num0 + 1}"
+          end
+          exercises.push exercise
         elsif num_indents <= exercise_num_indents
-          exercise_num = nil
-        end
-
-        if exercise_num
+          in_exercise = false
+        elsif in_exercise
           line = ' ' * (num_indents - exercise_num_indents)
           line += match[2] if match[2] && num_indents > exercise_num_indents
           line += match[5]
-          exercise_num_to_lines[exercise_num].push line
+          exercises.last.content += "\n" + line
         end
       end
-
-      self.exercises.each { |exercise| exercise.destroy }
-
-      exercise_num_to_lines.each do |exercise_num, lines|
-        if lines.first == nil || lines.first.strip == ''
-          line_num = exercise_num_to_line_num[exercise_num]
-          errors.add :base,
-            "Exercise is missing description at line #{line_num}"
-          raise ActiveRecord::Rollback
-        end
-
-        Exercise.create!({
-          id: exercise_num,
-          lesson_plan: self,
-          first_line: lines.first,
-          content: lines.join("\n"),
-        })
-      end
+      exercises.each { |exercise| exercise.save! }
       return true
     end
     return false
@@ -76,6 +68,7 @@ class LessonPlan < ActiveRecord::Base
 
   def content_as_html
     last_num_indents = 0
+    exercise_num = 0
 
     lines = self.content.split(/\r?\n/).map do |line|
       if match = line.match(/^\* (.*)$/)
@@ -85,16 +78,21 @@ class LessonPlan < ActiveRecord::Base
         num_indents = 0
         line = "<h2>#{match[1]}</h2>" # convert ** to h2
       else
-        match = line.match(/^( *)(- )?(X([0-9]+) ?)?(.*)$/)
+        match = line.match(/^( *)(- )?(X([0-9]*) ?)?(.*)$/)
         num_indents = match[1].size + (match[2] || '').size
 
         line = match[5]
 
         possible_class = ''
         possible_intro = ''
-        if exercise_dir = match[4]
+        if match[3]
+          exercise_num += 1
           possible_class = "class='exercise'"
-          possible_intro = "<b>Exercise #{exercise_dir}</b> "
+          if match[4] != ''
+            possible_intro = "<b>Exercise #{exercise_num} in #{match[4]}</b> "
+          else
+            possible_intro = "<b>Exercise #{exercise_num}</b> "
+          end
         end
 
         if match[2] == '- '

@@ -12,16 +12,13 @@ class MainController < ApplicationController
   end
 
   def single_lesson
-    if match = params[:month_day].match(/^([0-9]{2})-([0-9]{2})$/)
-      date = Date.new(2013, match[1].to_i, match[2].to_i)
-      @plan = LessonPlan.find_by_date(date)
-    else
-      raise "Bad format for date, should be MM-DD"
-    end
+    @plan = plan_from_month_day_params
   end
 
   def single_exercise
-    @exercise = Exercise.find(params[:id])
+    @plan = plan_from_month_day_params
+    @exercise = Exercise.where(
+      lesson_plan: @plan, order_in_lesson: params[:order_in_lesson]).first
   end
 
   def login_from_github
@@ -111,5 +108,15 @@ class MainController < ApplicationController
   def logout
     session.clear
     redirect_to '/'
+  end
+
+  protected
+  def plan_from_month_day_params
+    if match = params[:month_day].match(/^([0-9]{2})-([0-9]{2})$/)
+      date = Date.new(2013, match[1].to_i, match[2].to_i)
+      return LessonPlan.find_by_date(date)
+    else
+      raise "Bad format for date, should be MM-DD"
+    end
   end
 end

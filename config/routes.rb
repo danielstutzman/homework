@@ -1,7 +1,7 @@
 Homework::Application.routes.draw do
   root 'main#root'
   get '/lessons/:month_day'    => 'main#single_lesson'
-  get '/exercises/:id'         => 'main#single_exercise'
+  get '/exercises/:month_day/:order_in_lesson' => 'main#single_exercise'
 
   get  '/login'                => 'main#login'
   get  '/auth/github/callback' => 'main#login_from_github'

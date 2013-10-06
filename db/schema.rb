@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131006132555) do
+ActiveRecord::Schema.define(version: 20131006174134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,17 +31,17 @@ ActiveRecord::Schema.define(version: 20131006132555) do
   add_index "commits", ["committed_at"], name: "index_commits_on_committed_at", using: :btree
   add_index "commits", ["sha"], name: "index_commits_on_sha", using: :btree
 
-  create_table "exercises", id: false, force: true do |t|
-    t.integer  "id",             null: false
-    t.integer  "lesson_plan_id", null: false
-    t.string   "first_line",     null: false
-    t.text     "content"
+  create_table "exercises", force: true do |t|
+    t.integer  "lesson_plan_id",  null: false
+    t.string   "exercise_dir"
+    t.text     "content",         null: false
+    t.string   "first_line",      null: false
+    t.integer  "order_in_lesson", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "exercises", ["id"], name: "index_exercises_on_id", unique: true, using: :btree
-  add_index "exercises", ["lesson_plan_id"], name: "index_exercises_on_lesson_plan_id", using: :btree
+  add_index "exercises", ["lesson_plan_id", "order_in_lesson"], name: "index_exercises_on_lesson_plan_id_and_order_in_lesson", using: :btree
 
   create_table "lesson_plans", force: true do |t|
     t.date     "date",        null: false
