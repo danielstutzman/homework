@@ -17,4 +17,4 @@
       = form_tag '/logout' do
         = submit_tag 'Logout'
 
-  = yield
+  = find_and_preserve(yield) # don't add indent to inside of pre tag
