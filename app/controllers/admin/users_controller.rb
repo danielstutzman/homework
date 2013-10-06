@@ -69,6 +69,6 @@ class Admin::UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:github_username)
+      params.require(:user).permit(:github_username, :is_admin)
     end
 end

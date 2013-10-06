@@ -1,6 +1,6 @@
 User.transaction do
 
-  daniel = User.create! github_username: 'danielstutzman'
+  daniel = User.create! github_username: 'danielstutzman', is_admin: true
 
   homework_repo = Repo.create! \
     user:      daniel,

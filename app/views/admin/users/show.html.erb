@@ -5,5 +5,10 @@
   <%= @user.github_username %>
 </p>
 
+<p>
+  <strong>Is admin?</strong>
+  <%= @user.is_admin %>
+</p>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
