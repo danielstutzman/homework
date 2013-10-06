@@ -74,6 +74,15 @@ class LessonPlan < ActiveRecord::Base
     exercise_num = 0
 
     lines = self.content.split(/\r?\n/).map do |line|
+
+      line.gsub! /`(.*?)`/, '<code>\\1</code>'
+      if line.include?('HANDOUT')
+        line.gsub! /HANDOUT (https?:.*)$/,
+          "<a target='_new' href='\\1'>Handout</a>"
+      else
+        line.gsub! /(https?:\/\/[^ ,]+)/, "<a target='_new' href='\\1'>\\1</a>"
+      end
+
       if match = line.match(/^\* (.*)$/)
         num_indents = 0
         line = '' # remove h1
@@ -117,9 +126,6 @@ class LessonPlan < ActiveRecord::Base
         line = '</ul>' + line
         last_num_indents -= 2
       end
-
-      line.gsub! /`(.*?)`/, '<code>\\1</code>'
-      line.gsub! /(https?:\/\/[^ ,]+)/, "<a target='_new' href='\\1'>\\1</a>"
 
       last_num_indents = num_indents
 
