@@ -32,7 +32,7 @@ class LessonPlan < ActiveRecord::Base
       exercises = []
       exercise_num_indents = 0
       self.content.split(/\r?\n/).each_with_index do |line, line_num0|
-        match = line.match(/^( *)(- )?(X([0-9]*) ?)?(.*)$/)
+        match = line.match(/^( *)([-+] )?(X([0-9]*) ?)?(.*)$/)
 
         num_indents = match[1].size
 
@@ -78,7 +78,7 @@ class LessonPlan < ActiveRecord::Base
         num_indents = 0
         line = "<h2>#{match[1]}</h2>" # convert ** to h2
       else
-        match = line.match(/^( *)(- )?(X([0-9]*) ?)?(.*)$/)
+        match = line.match(/^( *)([-+] )?(X([0-9]*) ?)?(.*)$/)
         num_indents = match[1].size + (match[2] || '').size
 
         line = match[5]
@@ -87,7 +87,7 @@ class LessonPlan < ActiveRecord::Base
         possible_intro = ''
         if match[3]
           exercise_num += 1
-          possible_class = "class='exercise'"
+          possible_class = "exercise"
           if match[4] != ''
             possible_intro = "<b>Exercise #{exercise_num} in #{match[4]}</b> "
           else
@@ -96,7 +96,10 @@ class LessonPlan < ActiveRecord::Base
         end
 
         if match[2] == '- '
-          line = "<li #{possible_class}>#{possible_intro}" + line
+          line = "<li class='#{possible_class}'>#{possible_intro}" + line
+        elsif match[2] == '+ '
+          line = "<li class='expandable #{possible_class}'>#{possible_intro}" +
+            line
         else
           line = '<br>' + line
         end

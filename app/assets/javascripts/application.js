@@ -14,3 +14,24 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+  $('.expandable').each(function(index) {
+    var listItem = $(this);
+    var aTag = $("<a href='#'>[click to expand] </a>");
+    var isShowing = false;
+    aTag.click(function() {
+      if (isShowing) {
+        listItem.children().hide();
+        aTag.show();
+        isShowing = false;
+      } else {
+        listItem.children().show();
+        isShowing = true;
+      }
+      return false;
+    });
+    listItem.children().hide();
+    listItem.prepend(aTag);
+  });
+});
