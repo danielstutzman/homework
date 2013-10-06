@@ -112,7 +112,7 @@ class LessonPlan < ActiveRecord::Base
         elsif match[2] == '+ '
           line = "<li class='expandable #{possible_class}'>#{possible_intro}" +
             line
-        else
+        elsif match[5] != '' # if not blank line
           line = '<br>' + line
         end
       end
