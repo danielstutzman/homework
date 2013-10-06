@@ -17,7 +17,7 @@
     <% @lesson_plans.each do |lesson_plan| %>
       <tr>
         <td><%= lesson_plan.date %></td>
-        <td><%= lesson_plan.content %></td>
+        <td><pre><%= lesson_plan.content %></pre></td>
         <td><%= lesson_plan.topic %></td>
         <td><%= lesson_plan.handout_url %></td>
         <td><%= link_to 'Show', lesson_plan %></td>
