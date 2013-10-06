@@ -4,7 +4,7 @@ class CreateRefreshes < ActiveRecord::Migration
       t.integer   :user_id,      null: false
       t.integer   :repo_id,      null: false
       t.string    :exercise_dir, null: true
-      t.string    :exercise_id,  null: true
+      t.integer   :exercise_id,  null: true
       t.timestamp :logged_at,    null: false
     end
 

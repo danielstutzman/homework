@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20131006132555) do
     t.integer  "user_id",      null: false
     t.integer  "repo_id",      null: false
     t.string   "exercise_dir"
-    t.string   "exercise_id"
+    t.integer  "exercise_id"
     t.datetime "logged_at",    null: false
   end
 
@@ -68,14 +68,14 @@ ActiveRecord::Schema.define(version: 20131006132555) do
   add_index "refreshes", ["user_id"], name: "index_refreshes_on_user_id", using: :btree
 
   create_table "repos", force: true do |t|
-    t.integer  "user_id",           null: false
-    t.string   "name",              null: false
-    t.string   "https_url",         null: false
+    t.integer  "user_id",                           null: false
+    t.string   "name",                              null: false
+    t.string   "https_url",                         null: false
     t.integer  "hook_id"
-    t.boolean  "has_exercise_dirs", null: false
+    t.boolean  "has_exercise_dirs",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_not_found",      null: false
+    t.boolean  "is_not_found",      default: false, null: false
   end
 
   add_index "repos", ["https_url"], name: "index_repos_on_https_url", unique: true, using: :btree
