@@ -6,16 +6,19 @@
 %div(style='white-space:pre')
   = @exercise.content_as_html
 
-%h2 Relevant commits pushed to GitHub
-- if @commits.size == 0
-  %p None so far
+- if @exercise.exercise_dir
+  %h2
+    Commits pushed to GitHub with
+    <code>#{@exercise.exercise_dir}</code> directory
+  - if @commits.size == 0
+    %p None so far
 
-- @commits.each do |commit|
-  %table
-    %tr
-      %td(style='padding: 0 10px')
-        = commit.committed_at.strftime('%Y-%m-%d %H:%M')
-      %th(style='padding: 0 10px')
-        %a{href: "#{commit.repo.https_url}/commit/#{commit.sha}"}
-          = commit.sha[0...6]
-      %td(style='padding: 0 10px')= commit.message
+  - @commits.each do |commit|
+    %table
+      %tr
+        %td(style='padding: 0 10px')
+          = commit.committed_at.strftime('%Y-%m-%d %H:%M')
+        %th(style='padding: 0 10px')
+          %a{href: "#{commit.repo.https_url}/commit/#{commit.sha}"}
+            = commit.sha[0...6]
+        %td(style='padding: 0 10px')= commit.message
