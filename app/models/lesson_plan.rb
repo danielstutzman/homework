@@ -6,7 +6,23 @@ class LessonPlan < ActiveRecord::Base
   validates :topic,   presence: true
   validates :date,    uniqueness: true
 
+  before_save :parse_content_for_handout_and_topic
   validate :exercises_can_be_created
+
+  def parse_content_for_handout_and_topic
+    self.content.split(/\r?\n/).each_with_index do |line, line_num0|
+      # For example, if content has "* 10-07: HTML", set topic to "HTML"
+      if match = line.match(/^\* (.*)$/)
+        topic = match[1]
+        topic = topic[(topic.index(':') + 2)..-1] if topic.include?(':')
+        self.topic = topic
+      end
+
+      if match = line.match(/^HANDOUT (https?:.*)$/)
+        self.handout_url = match[1]
+      end
+    end
+  end
 
   def exercises_can_be_created
     LessonPlan.transaction do
