@@ -75,6 +75,8 @@ class LessonPlan < ActiveRecord::Base
 
     lines = self.content.split(/\r?\n/).map do |line|
 
+      line.gsub! /</, '&lt;'
+      line.gsub! />/, '&gt;'
       line.gsub! /`(.*?)`/, '<code>\\1</code>'
       if line.include?('HANDOUT')
         line.gsub! /HANDOUT (https?:.*)$/,
