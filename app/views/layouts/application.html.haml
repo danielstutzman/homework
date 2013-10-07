@@ -2,9 +2,10 @@
 %html
   %head
     %title Homework
-    = stylesheet_link_tag 'application', media: 'all', |
-      'data-turbolinks-track' => true                  |
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'application', media: 'all'
+    - if request.path_info.start_with?('/admin')
+      = stylesheet_link_tag 'scaffolds', media: 'all'
+    = javascript_include_tag 'application'
     = csrf_meta_tags
 
   %body

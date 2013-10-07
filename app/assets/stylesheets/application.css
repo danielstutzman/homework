@@ -9,7 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
  */
 
 ul.admin-nav {
@@ -28,4 +27,16 @@ ul.admin-nav:after {
 .exercise {
   background-color: #ccc;
   padding: 10px;
+}
+.flash-success {
+  background-color: #dff0d8;
+  border: 1px #d6e9c6 solid;
+  color: #468847;
+  padding: 15px;
+}
+.flash-error {
+  background-color: #f2dede;
+  border: 1px #eed3d7 solid;
+  color: #b94a48;
+  padding: 15px;
 }
