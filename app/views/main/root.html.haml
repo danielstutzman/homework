@@ -3,7 +3,7 @@
   %ul
     - @sidebar_links.each do |link|
       %li
-        %a(target='_new'){href: link.url}= link.name
+        %a(target='_blank'){href: link.url}= link.name
 
 - LessonPlan.order(:date).each do |plan|
   %h1 #{plan.date.strftime('%a %b %-d')}: #{plan.topic}

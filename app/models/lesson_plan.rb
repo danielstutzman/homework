@@ -86,9 +86,10 @@ class LessonPlan < ActiveRecord::Base
       line.gsub! /`(.*?)`/, '<code>\\1</code>'
       if line.include?('HANDOUT')
         line.gsub! /HANDOUT (https?:.*)$/,
-          "<a target='_new' href='\\1'>Handout</a>"
+          "<a target='_blank' href='\\1'>Handout</a>"
       else
-        line.gsub! /(https?:\/\/[^\n ,]+)/, "<code><a target='_new' href='\\1'>\\1</a></code>"
+        line.gsub! /(https?:\/\/[^\n ,]+)/,
+          "<code><a target='_blank' href='\\1'>\\1</a></code>"
       end
 
       if match = line.match(/^\* (.*)$/)
