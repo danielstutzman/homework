@@ -1,7 +1,10 @@
 %p
   %a(href='/') Back
 
-%h1 Exercise #{@exercise.id} - #{@exercise.first_line}
+%h1
+  Exercise ##{@exercise.order_in_lesson} for
+  = @exercise.lesson_plan.date.strftime('%a %b %-d')
+  = "- #{@exercise.first_line}"
 
 %div(style='white-space:pre')
   = @exercise.content_as_html
