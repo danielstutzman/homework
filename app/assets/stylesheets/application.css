@@ -11,12 +11,16 @@
  *= require_self
  */
 
+body {
+  font-size: 16pt;
+  font-family: sans-serif;
+}
 ul.admin-nav {
   background-color: #ccc;
 }
 ul.admin-nav li {
   float: left;
-  width: 120px;
+  padding: 0 15px;
   display: inline-block;
 }
 ul.admin-nav:after {
