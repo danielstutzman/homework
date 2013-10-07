@@ -18,7 +18,7 @@
     - Exercise.order(:id).each do |exercise|
       %li
         %a{href: "/exercises/#{plan.date.strftime('%m-%d')}/#{exercise.order_in_lesson}"}
+          Exercise #{exercise.order_in_lesson}
           - if exercise.exercise_dir
-            Exercise #{exercise.order_in_lesson} in #{exercise.exercise_dir} - #{exercise.first_line}
-          - else
-            Exercise #{exercise.order_in_lesson} - #{exercise.first_line}
+            in #{exercise.exercise_dir} dir
+          = "- #{exercise.first_line}"
