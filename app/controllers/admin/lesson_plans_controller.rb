@@ -43,6 +43,8 @@ class Admin::LessonPlansController < ApplicationController
   def update
     respond_to do |format|
       if @lesson_plan.update(lesson_plan_params)
+        @lesson_plan.create_exercises!
+
         format.html { redirect_to @lesson_plan, notice: 'Lesson plan was successfully updated.' }
         format.json { head :no_content }
       else

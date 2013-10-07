@@ -6,7 +6,7 @@ class LessonPlan < ActiveRecord::Base
   validates :topic,   presence: true
   validates :date,    uniqueness: true
 
-  before_save :parse_content_for_handout_and_topic
+  before_validation :parse_content_for_handout_and_topic
   validate :exercises_can_be_created
 
   def parse_content_for_handout_and_topic
@@ -25,9 +25,18 @@ class LessonPlan < ActiveRecord::Base
   end
 
   def exercises_can_be_created
+    self.create_exercises
+  end
+
+  def create_exercises!
     Exercise.transaction do
       self.exercises.each { |exercise| exercise.destroy }
+      exercises = self.create_exercises
+      exercises.each { |exercise| exercise.save! }
+    end
+  end
 
+  def create_exercises
       in_exercise = false
       exercises = []
       exercise_num_indents = 0
@@ -43,7 +52,7 @@ class LessonPlan < ActiveRecord::Base
           in_exercise = true
           exercise_num_indents = num_indents
           exercise = Exercise.new({
-            lesson_plan: self,
+            lesson_plan_id: self.id,
             exercise_dir: (match[4] == '') ? nil : match[4],
             first_line: match[5],
             content: match[5],
@@ -63,10 +72,7 @@ class LessonPlan < ActiveRecord::Base
           exercises.last.content += "\n" + line
         end
       end
-      exercises.each { |exercise| exercise.save! }
-      return true
-    end
-    return false
+      exercises
   end
 
   def content_as_html
