@@ -15,7 +15,7 @@
     %li
       %a{href:plan.handout_url} Handout
 
-    - Exercise.order(:id).each do |exercise|
+    - plan.exercises.order(:order_in_lesson).each do |exercise|
       %li
         %a{href: "/exercises/#{plan.date.strftime('%m-%d')}/#{exercise.order_in_lesson}"}
           Exercise #{exercise.order_in_lesson}
