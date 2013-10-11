@@ -75,6 +75,10 @@ class LessonPlan < ActiveRecord::Base
       exercises
   end
 
+  def topic_as_html
+    self.topic.gsub(/`(.*?)`/, '<code>\\1</code>').html_safe
+  end
+
   def content_as_html
     last_num_indents = 0
     exercise_num = 0
