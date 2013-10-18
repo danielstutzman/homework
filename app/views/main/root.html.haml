@@ -23,4 +23,4 @@
           Exercise #{exercise.order_in_lesson}
           - if exercise.exercise_dir
             in #{exercise.exercise_dir} dir
-          = "- #{exercise.first_line}"
+          != "- #{h(exercise.first_line).gsub(/`(.*?)`/, '<code>\\1</code>')}"
