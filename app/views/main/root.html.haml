@@ -14,8 +14,9 @@
     %li
       %a{href: '/lessons/' + plan.date.strftime('%m-%d')}
         Lesson plan
-    %li
-      %a{href:plan.handout_url} Handout
+    - unless plan.handout_url.blank?
+      %li
+        %a{href:plan.handout_url} Handout
 
     - plan.exercises.order(:order_in_lesson).each do |exercise|
       %li
