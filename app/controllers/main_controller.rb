@@ -31,6 +31,7 @@ class MainController < ApplicationController
     user     = User.find_by_github_username(username) ||
                User.create!(github_username: username)
 
+    if false
     # add a hook for any repos not hooked yet
     user.repos.where(is_not_found: false).each do |repo|
       begin
@@ -63,6 +64,7 @@ class MainController < ApplicationController
         repo.is_not_found = true
         repo.save!
       end
+    end
     end
 
     session[:user_id] = user.id
