@@ -13,12 +13,15 @@ class MainController < ApplicationController
 
   def single_lesson
     @plan = plan_from_month_day_params
+    raise ActionController::RoutingError.new('Not Found') if @plan.nil?
   end
 
   def single_exercise
     @plan = plan_from_month_day_params
+    raise ActionController::RoutingError.new('Not Found') if @plan.nil?
     @exercise = Exercise.where(
       lesson_plan: @plan, order_in_lesson: params[:order_in_lesson]).first
+    raise ActionController::RoutingError.new('Not Found') if @exercise.nil?
     @commits =
       Commit.where(user: @user, exercise: @exercise).order(:committed_at)
   end
@@ -127,7 +130,7 @@ class MainController < ApplicationController
       date = Date.new(2013, match[1].to_i, match[2].to_i)
       return LessonPlan.find_by_date(date)
     else
-      raise "Bad format for date, should be MM-DD"
+      return nil
     end
   end
 end
