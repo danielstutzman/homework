@@ -3,3 +3,16 @@ chmod 0666 /home/deployer/homework/log/production.log
 Add to /usr/share/nginx/www/analytics/config/config.ini.php
   under the other trusted_hosts:
 trusted_hosts[] = "www.davincicoders2013.info"
+
+Create a .env file with;
+  # https://github.com/settings/applications/123
+  GITHUB_KEY=123
+  GITHUB_SECRET=123
+  WEBHOOK_URL=http://www.example.com/github_webhook
+  SESSION_SECRET=123
+
+chmod a+w /home/deployer/homework/tmp/pids
+
+psql -U homework -h localhost
+  select * from users;
+  update users set is_admin = 't' where id = 1;
