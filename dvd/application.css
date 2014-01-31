@@ -1,0 +1,47 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+
+ */
+
+
+body {
+  font-size: 16pt;
+  font-family: sans-serif;
+}
+ul.admin-nav {
+  background-color: #ccc;
+}
+ul.admin-nav li {
+  float: left;
+  padding: 0 15px;
+  display: inline-block;
+}
+ul.admin-nav:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.exercise {
+  background-color: #ccc;
+  padding: 10px;
+}
+.flash-success {
+  background-color: #dff0d8;
+  border: 1px #d6e9c6 solid;
+  color: #468847;
+  padding: 15px;
+}
+.flash-error {
+  background-color: #f2dede;
+  border: 1px #eed3d7 solid;
+  color: #b94a48;
+  padding: 15px;
+}
