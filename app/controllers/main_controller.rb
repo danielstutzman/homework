@@ -45,7 +45,7 @@ class MainController < ApplicationController
   protected
   def plan_from_month_day_params
     if match = params[:month_day].match(/^([0-9]{2})-([0-9]{2})$/)
-      date = Date.new(2013, match[1].to_i, match[2].to_i)
+      date = Date.new(2014, match[1].to_i, match[2].to_i)
       return LessonPlan.find_by_date(date)
     else
       return nil
